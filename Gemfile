@@ -8,5 +8,6 @@ end
 gem 'spree', github: 'spree/spree', branch: 'main'
 # gem 'spree_backend', github: 'spree/spree', branch: 'main'
 gem 'rails-controller-testing'
+gem 'roo', '~> 2.9.0'
 
 gemspec
