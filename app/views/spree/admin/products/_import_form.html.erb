@@ -1,0 +1,24 @@
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:Import), '/#', {:remote => true,'data-toggle' =>  'modal','data-target' => '#product-import-button', class:'btn btn-success me-2', icon: 'add.svg'} %>
+<% end if can?(:create, Spree::Product) %>
+
+<div class='modal fade' id='product-import-button' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <h5 class='modal-title' id='exampleModalLabel'>Import Products</h5>
+        <button type='button' class='close' id='product-import-close-button' data-dismiss='modal' aria-label='Close'>
+          <span aria-hidden='false'>&times;</span>
+        </button>
+      </div>
+      <div class='modal-body'>
+        <%=form_with model: [:admin, @products], url: import_admin_products_path, method: :post do |f|%>
+          <%= f.file_field :file, accept: '.xlsx', class:'form-control-file mr-4 mb-4', :required => 'true' %>
+          <%= link_to 'Download Sample', import_sample_admin_import_logs_path(format: "xlsx"), class:'btn btn-primary me-2' %>
+          <%= f.submit 'Import', class: 'btn btn-success'%>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>

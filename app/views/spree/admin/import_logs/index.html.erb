@@ -1,0 +1,30 @@
+<% content_for :page_title do %>
+  <%= Spree.t('import_logs')%>
+<% end %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Initiated By</th>
+      <th scope="col">State</th>
+      <th scope="col">Success Row Count</th>
+      <th scope="col">Error Row Count</th>
+      <th scope="col">Created At</th>
+      <th scope="col">Error Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @import_logs.each do |log| %>
+      <tr>
+        <td> <%= log.started_by_email %> </td>
+        <td> <%= log.state.capitalize %> </td>
+        <td> <%= log.success_row_count? ? log.success_row_count : 0 %> </td>
+        <td> <%= log.error_row_count? ? log.error_row_count : 0%> </td>
+        <td> <%= log.created_at %> </td>
+        <td> <%= log.error_row_count? ? (link_to 'View', admin_import_log_path(log)) : 'No Error' %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= render 'spree/admin/shared/index_table_options', collection: @import_logs %>

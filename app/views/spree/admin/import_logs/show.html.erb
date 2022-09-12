@@ -1,0 +1,23 @@
+<% content_for :page_title do %>
+  <%= plural_resource_name(Spree::ImportLog) %>
+<% end %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Row Number</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Error</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @import_log.error_details.keys.each do |key| %>
+      <% value_hash = @import_log.error_details[key.to_s] %>
+      <tr>
+        <td> <%= key.titleize %> </td>
+        <td> <%= value_hash['product_name'] %> </td>
+        <td> <%= value_hash['message'] %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
