@@ -27,6 +27,13 @@ A Spree extension that provides the ability to import products from an xlsx file
 4. Restart your server
 
   If your server was running, restart it so that it can find the assets properly.
+  
+## Demo
+
+
+
+https://user-images.githubusercontent.com/80153749/190127958-4ed6b4be-f5aa-49e4-8230-51374fd274cc.mp4
+
 
 
 ## Rule to device xlsx file
