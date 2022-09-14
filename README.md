@@ -34,6 +34,7 @@ A Spree extension that provides the ability to import products from an xlsx file
 
 https://user-images.githubusercontent.com/80153749/190127958-4ed6b4be-f5aa-49e4-8230-51374fd274cc.mp4
 
+[Download Sample File](https://github.com/spree-edge/spree_import_products/files/9565883/sample.xlsx)
 
 
 ## Rule to device xlsx file
