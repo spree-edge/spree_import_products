@@ -1,6 +1,8 @@
-# SpreeImportProducts
+# Spree Import Products
 
-Introduction goes here.
+## About
+
+A Spree extension that provides the ability to import products from an xlsx file to any ecommerce application irrespective of the business they cater. Including the association between the models.
 
 ## Installation
 
@@ -25,6 +27,118 @@ Introduction goes here.
 4. Restart your server
 
   If your server was running, restart it so that it can find the assets properly.
+  
+## Demo
+
+
+
+https://user-images.githubusercontent.com/80153749/190127958-4ed6b4be-f5aa-49e4-8230-51374fd274cc.mp4
+
+[Download Sample File](https://github.com/spree-edge/spree_import_products/files/9565883/sample.xlsx)
+
+
+## Rule to device xlsx file
+
+Spree's syntactic sugar, allows us to add associated model for products like Taxon trees, Option Types Variants, Product Properties and bulk upload of images.
+
+### OptionType & Variants
+
+To define variants in spree, first we need to have option types linked to a product.
+
+**Ex:-** Color, Size, Material
+
+To create a variant we have option values againt option types.
+
+**Ex:-** For type Color we have Red,Blue,Green as option values.
+
+#### Simple Variants creation:
+
+This example demonstrates how to create Variants from a single OptionType from within a single column, using an embedded syntax. 
+
+**'Option Types'**
+
+    size:small|size:medium|Size:Large
+
+So in the above example we will end up with 3 variants(**'|'**) which will be as follows:
+
+    Variant 1: size:small
+    Variant 2: size:medium
+    Variant 3: size:large
+
+
+#### Complex Variant Creation: 
+
+To create a Variant with both size and colour use the delimiter **';'** to indicate a composite variant required.
+
+ **'|'** still delimits Variants for a specific OptionType
+
+EX:- 
+
+**'Option Types'**
+
+    size:small;colour:blue|size:medium;colour:green|size:large;colour:red
+
+If no such size or colour OptionType exists then a new one is created with the supplied name.
+
+So in the above example we will end up with 3 variants(**'|'**) which are as follows:
+
+    Variant 1: size:small, colour:blue
+    Variant 2: size:medium, colour:green
+    Variant 3: size:large, colour:red
+ 
+
+## Properties
+
+Properties are snippets of text, which tell us more about the product.
+
+As for all associations can contain multiple name/value sets in default form :
+
+    Property:display_value|Property:display_value
+
+For EX:- 
+
+    brand:Bluebash|technology:ROR
+
+So in the above example we will end up with two properties which are as follows:
+
+    Property 1: brand:Bluebash
+    Property 2: technology:ROR
+
+Multiple instances of a has_many association can be created via separating each instance with **|** in a single column.
+
+## Taxons
+To understand the taxon creation from a single column, we first need to understand the delimeters we would be using which are as follows
+
+    '>'  To create nested taxons
+    '|'  To create multiple taxons
+
+For example, to create 3 Taxons, where **"Company"** is parent to **"Software Development"**, and **"Software Development"** parent to **Languages**
+
+    Company>Software development>Languages
+
+And if we want to create two taxon trees we will seperate the second taxon tree with **"Pipe Symbol"('|')**, and your taxon column will look like:
+
+    Company>software development>Languages | Company>Mobile App development>Framework
+
+
+## Important Points to note
+
+**CountOnHand** and **Image** column should have same number of values as we have in variant's column, seperated by pipe symbol('|) 
+
+**Ex:**
+If we have 3 variants, then the CountOnHand and Image column will have values like:
+
+    Variant(column) - size:small;colour:blue|size:medium;colour:green|size:large;colour:red
+    CountOnHand(column) - 1|4|6
+    Image(column) - link1|link2|link3
+    
+Whenever we import_product, the **taxcategory** and **shippingcategory** name will be appended with the store name.
+For ex: 
+    TaxCategory(column) - 'US-VAT'
+    ShippingCategory(column) - 'Delicate'
+
+Lets say your store name is Store1, then your assigned taxcategory and ShippingCategpry after product import will be **US-VAT_Store1** and **Delicate_Store1** respectively.
+
 
 ## Testing
 
