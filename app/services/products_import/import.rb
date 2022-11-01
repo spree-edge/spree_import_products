@@ -33,7 +33,7 @@ class ProductsImport::Import
     shipping_category = find_or_create_shipping_category(row['ShippingCategory']) if row['ShippingCategory']
     tax_category = find_or_create_tax_category(row['TaxCategory']) if row['TaxCategory']
     # Product find from sku for updating the variant if present
-    variant = Spree::Variant.joins(product: [:stores]).where('sku = ? AND spree_stores.id = ?', row['SKU'], @current_store.id)
+    variant = Spree::Variant.joins(product: [:stores]).where('sku = ? AND spree_stores.id = ?', row['SKU'].to_s, @current_store.id)
     @product = variant.present? ? variant.first.product : nil
     if @product.present?
       @product.assign_attributes(name: row['Name'], price: row['Price'], description: row['Description'],
